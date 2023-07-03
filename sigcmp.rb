@@ -12,6 +12,7 @@ def scrap_steam(game, verbose)
     link = e['href']
     title = e.at_css('span[class="title"]').text
     price = e.to_s.match(/([\d,]+€)|(Free)/)
+    next unless title =~ /#{game}/i
     puts verbose ? "(#{price}) #{title} => #{link}" : "(#{price}) #{title}"
   end
 end
@@ -25,6 +26,7 @@ def scrap_instant_gaming(game, verbose)
     link = e['href']
     title = e.at_css('img')['alt']
     price = e['title'].split.last
+    next unless title =~ /#{game}/i
     puts verbose ? "(#{price}) #{title} => #{link}" : "(#{price}) #{title}"
   end
 end
