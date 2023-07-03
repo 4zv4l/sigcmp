@@ -29,7 +29,8 @@ def scrap_instant_gaming(game, verbose)
   end
 end
 
-game = ARGV[0] || (print "game> "; $stdin.gets)
-verbose = ARGV.any?(["-v", "--verbose"])
+verbose = ["-v", "--verbose"].any? { |v| ARGV.include? v }
+ARGV.delete("-v"); ARGV.delete("--verbose")
+game = ARGV.shift || (print "game> "; $stdin.gets)
 scrap_steam(game, verbose)
 scrap_instant_gaming(game, verbose)
