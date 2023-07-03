@@ -21,10 +21,10 @@ def scrap_instant_gaming(game, verbose)
   search_url = 'https://www.instant-gaming.com/en/search/?query='
   resp = HTTParty.get "#{search_url}#{game}"
   doc = Nokogiri::HTML resp.body
-  doc.css('a[class="cover "]').map do |e|
+  doc.css('a[class="cover "]').each do |e|
     link = e['href']
     title = e.at_css('img')['alt']
-    price = e['title'].split(' ').last
+    price = e['title'].split.last
     puts verbose ? "(#{price}) #{title} => #{link}" : "(#{price}) #{title}"
   end
 end
